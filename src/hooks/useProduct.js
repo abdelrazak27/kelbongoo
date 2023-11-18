@@ -13,12 +13,14 @@ const useProduct = () => {
 
     // Calcul du prix TTC 
     const calculateTTC = () => {
-        return (product.priceHT + (product.priceHT * product.taxRate)).toFixed(2); // arrondi à 2 chiffre après la virgules
+        const priceHTFloat = parseFloat(product.priceHT);
+        const taxRateFloat = parseFloat(product.taxRate);
+        return (priceHTFloat + (priceHTFloat * taxRateFloat)).toFixed(2); // arrondi à 2 chiffre après la virgules
     };
 
     // Calcul du stock restant du produit choisi
     const calculateRemainingStock = () => {
-        return product.stockMaximumAvailable - product.stockOrdered;
+        return parseInt(product.stockMaximumAvailable) - parseInt(product.stockOrdered);
     };
 
     return {
