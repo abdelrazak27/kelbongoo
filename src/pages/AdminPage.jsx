@@ -58,6 +58,29 @@ function AdminPage() {
         }
     };
 
+    const handleDelete = async (productID) => {
+        try {
+            const response = await fetch(`/api/deleteProduct`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: productID }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            
+            const result = await response.json();
+            console.log('Product deleted:', result);
+            fetchProducts();
+        } catch (error) {
+            console.error('Error deleting product:', error);
+        }
+    };
+    
+
     useEffect(() => {
         fetchProducts();
     }, []);
@@ -70,13 +93,13 @@ function AdminPage() {
                     {/* affichage temporaire */}
                     {products.map((productItem) => (
                         <li key={productItem.id}>
-                            {productItem.name}<br/>Prix HT: {productItem.price_ht}€
+                            {productItem.name} ({productItem.id})<br/>Prix HT: {productItem.price_ht}€
                             <br/>Pourcentages taxes: {productItem.tax_rate *100}%
                             <br/>Prix TTC: {productItem.price_ttc}€
                             <br/>Stock max: {productItem.stock_maximum_available}
                             <br/>Stock actuel: {productItem.stock_available}
                             <br/>Déjà acheté: {productItem.stock_ordered}
-
+                            <br/><button onClick={() => handleDelete(productItem.id)}>Supprimer</button>
                             <hr/>
                         </li>
                     ))}
