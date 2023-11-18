@@ -11,21 +11,21 @@ function AdminPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { data, error } = await supabase
+        const { error } = await supabase
             .from('products')
             .insert([
                 { 
                     name: product.name,
-                    price_ht: product.priceHT,
-                    tax_rate: product.taxRate,
-                    stock_ordered: product.stockOrdered,
-                    stock_maximum_available: product.stockMaximumAvailable
+                    price_ht: parseFloat(product.priceHT),
+                    tax_rate: parseFloat(product.taxRate),
+                    stock_ordered: parseInt(product.stockOrdered),
+                    stock_maximum_available: parseInt(product.stockMaximumAvailable)
                 }
             ]);
         if (error) {
             console.error('Erreur lors de l\'ajout du produit :', error); // pour debug
         } else {
-            console.log('Produit ajouté avec succès :', data); // pour debug
+            console.log('Produit ajouté avec succès'); // pour debug
         }
     };
 
@@ -39,14 +39,17 @@ function AdminPage() {
                     value={product.name}
                     onChange={handleInputChange}
                     placeholder="Nom du produit"
+                    required
                 />
                 <input
                     type="number"
                     name="priceHT"
-                    value={parseFloat(product.priceHT)}
+                    value={product.priceHT}
                     onChange={handleInputChange}
                     placeholder="Prix HT"
                     step="0.01"
+                    min="0"
+                    required
                 />
                 <select
                     name="taxRate"
@@ -59,16 +62,20 @@ function AdminPage() {
                 <input
                     type="number"
                     name="stockOrdered"
-                    value={parseInt(product.stockOrdered)}
+                    value={product.stockOrdered}
                     onChange={handleInputChange}
                     placeholder="Stock commandé"
+                    min="0"
+                    required
                 />
                 <input
                     type="number"
                     name="stockMaximumAvailable"
-                    value={parseInt(product.stockMaximumAvailable)}
+                    value={product.stockMaximumAvailable}
                     onChange={handleInputChange}
                     placeholder="Stock maximum disponible"
+                    min="0"
+                    required
                 />
                 <button type="submit">Ajouter</button>
             </form>

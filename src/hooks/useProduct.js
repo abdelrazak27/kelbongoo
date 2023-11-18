@@ -4,11 +4,11 @@ const useProduct = () => {
 
     // Modèle produit avec des valeurs par défaut
     const [product, setProduct] = useState({
-        name: 'product',
-        priceHT: 0.00,
+        name: '',
+        priceHT: '',
         taxRate: 0.20, // 0.20 (par défaut) ou 0.055
-        stockOrdered: 0,
-        stockMaximumAvailable: 0
+        stockOrdered: '',
+        stockMaximumAvailable: ''
     });
 
     // Calcul du prix TTC 
