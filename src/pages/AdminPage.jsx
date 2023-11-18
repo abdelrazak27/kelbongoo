@@ -58,11 +58,8 @@ function AdminPage() {
         }
     };
 
+    // supprimer un produit de la bdd
     const handleDelete = async (productID) => {
-        if (!confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
-            return;
-        }
-
         try {
             const response = await fetch(`/api/deleteProduct`, {
                 method: 'DELETE',
