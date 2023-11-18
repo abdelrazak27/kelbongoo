@@ -5,8 +5,8 @@ export default function handler(req, res) {
         res.setHeader('Allow', ['DELETE']);
         return res.status(405).end('Method Not Allowed');
     }
-
-    const { id } = JSON.parse(req.body);
+    
+    const { id } = req.body;
 
     const connection = mysql.createConnection({
         host: 'mysql-kelbongoo.alwaysdata.net',
