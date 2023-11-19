@@ -1,27 +1,13 @@
-import { useEffect, useState } from 'react';
 import useProduct from '../hooks/useProduct';
 
-function AdminPage() {
+function AdminPage({ fetchProducts, products }) {
     const { product, setProduct, calculateTTC, calculateRemainingStock } = useProduct(); // produit à ajouter (hook)
-    const [products, setProducts] = useState([]); // liste des produits existants
 
     // Changement dans le formulaire
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setProduct({ ...product, [name]: value }); // évite davoir un setter pour chaque élément du produit, on va chercher dans l'objet, ce qu'on souhaite modifier
     };
-
-    const fetchProducts = () => {
-        fetch('/api/getProducts')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => setProducts(data.products))
-            .catch(error => console.error('Error fetching data:', error));
-    }
 
     // Soumission du formulaire
     const handleSubmit = async (e) => {
@@ -78,11 +64,6 @@ function AdminPage() {
             console.error('Error deleting product:', error);
         }
     };
-    
-
-    useEffect(() => {
-        fetchProducts();
-    }, []);
 
     return (
         <div>
