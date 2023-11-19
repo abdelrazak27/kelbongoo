@@ -30,10 +30,8 @@ function AdminPage() {
             name: product.name,
             price_ht: parseFloat(product.priceHT),
             tax_rate: parseFloat(product.taxRate),
-            price_ttc: parseFloat(calculateTTC()),
             stock_maximum_available: parseInt(product.stockMaximumAvailable),
             stock_ordered: parseInt(product.stockOrdered),
-            stock_available: parseInt(calculateRemainingStock()),
         };
     
         // ajout dans la base de données
@@ -96,9 +94,9 @@ function AdminPage() {
                         <li key={productItem.id}>
                             {productItem.name} ({productItem.id})<br/>Prix HT: {productItem.price_ht}€
                             <br/>Pourcentages taxes: {productItem.tax_rate *100}%
-                            <br/>Prix TTC: {productItem.price_ttc}€
+                            <br/>Prix TTC: {calculateTTC(productItem.price_ht, productItem.tax_rate)}€
                             <br/>Stock max: {productItem.stock_maximum_available}
-                            <br/>Stock actuel: {productItem.stock_available}
+                            <br/>Stock actuel: {calculateRemainingStock(productItem.stock_maximum_available, productItem.stock_ordered)}
                             <br/>Déjà acheté: {productItem.stock_ordered}
                             <br/><button onClick={() => handleDelete(productItem.id)}>Supprimer</button>
                             <hr/>

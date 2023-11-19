@@ -12,15 +12,15 @@ const useProduct = () => {
     });
 
     // Calcul du prix TTC 
-    const calculateTTC = () => {
-        const priceHTFloat = parseFloat(product.priceHT);
-        const taxRateFloat = parseFloat(product.taxRate);
+    const calculateTTC = (priceHT, taxRate) => {
+        const priceHTFloat = parseFloat(priceHT);
+        const taxRateFloat = parseFloat(taxRate);
         return (priceHTFloat + (priceHTFloat * taxRateFloat)).toFixed(2); // arrondi à 2 chiffre après la virgules
     };
 
     // Calcul du stock restant du produit choisi
-    const calculateRemainingStock = () => {
-        return parseInt(product.stockMaximumAvailable) - parseInt(product.stockOrdered);
+    const calculateRemainingStock = (stockMaximumAvailable, stockOrdered) => {
+        return parseInt(stockMaximumAvailable) - parseInt(stockOrdered);
     };
 
     return {
