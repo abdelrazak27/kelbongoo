@@ -1,0 +1,29 @@
+.logoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.logo {
+    height: 100px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.notificationContainer {
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    padding: 7px 0;
+    background-color: #2E7247;
+    color: white;
+    font-weight: 500;
+    transition: background-color 0.1s ease;
+}
+
+.notificationContainer:hover {
+    background-color: #245535;
+}

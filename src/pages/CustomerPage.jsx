@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import Button from "../components/Button";
-import ProductsList from "../components/ProductsList";
+import Button from "../components/Button/Button";
+import ProductsList from "../components/ProductsList/ProductsList";
 import { ItemsContext } from "../contexts/ItemsContext";
 
-function CustomerPage({ products }) {
+function CustomerPage({ products, formatPrice }) {
 
     const { items } = useContext(ItemsContext);
 
@@ -72,8 +72,10 @@ function CustomerPage({ products }) {
 
     return (
         <>
-            <ProductsList products={products}/>
-            <Button text="Commander" functionButton={checkOutCart} disabled={items.length === 0}/>
+            <h2>Produits</h2>
+            <ProductsList products={products} formatPrice={formatPrice} />
+            <br />
+            <Button text="Commander" functionButton={checkOutCart} disabled={items.length === 0} />
         </>
     );
 }

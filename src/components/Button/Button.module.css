@@ -1,0 +1,15 @@
+.bigButton {
+    background: #2E7247;
+    border: none;
+    width: 100%;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 700;
+    font-size: 1.4rem;
+    padding: 10px 0;
+}
+
+.bigButton:hover {
+    cursor: pointer;
+    background: #245535;
+}

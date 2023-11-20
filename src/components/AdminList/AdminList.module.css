@@ -1,0 +1,73 @@
+.productsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.productsTable th {
+    font-weight: 700;
+    background-color: #d1d1d1;
+}
+
+.productsTable th,
+.productsTable td {
+    text-align: center;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.productsTable tr:nth-child(odd) {
+    background-color: #dedede;
+}
+
+.productsTable tr:nth-child(even) {
+    background-color: #d1d1d1;
+}
+
+.deleteButton {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+.deleteButton:hover {
+    background-color: #b13636;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .productsTable, .productsTable thead, .productsTable tbody, .productsTable th, .productsTable td, .productsTable tr {
+        display: block;
+    }
+    
+    .productsTable thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    .productsTable tr { margin-bottom: 10px; }
+    
+    .productsTable td {
+        position: relative;
+        text-align: center;
+    }
+    
+    .productsTable td:before {
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        content: attr(data-title);
+    }
+    
+    .productsTable .deleteButton {
+        width: 100%;
+        text-align: center;
+    }
+}

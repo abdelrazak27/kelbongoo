@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import useProduct from "../hooks/useProduct";
-import { CartContext } from "../contexts/CartContext";
-import { ItemsContext } from "../contexts/ItemsContext";
+import useProduct from "../../hooks/useProduct";
+import { CartContext } from "../../contexts/CartContext";
+import { ItemsContext } from "../../contexts/ItemsContext";
+import styles from "./ProductsList.module.css";
 
-function ProductsList({ products }) {
+function ProductsList({ products, formatPrice }) {
     const { calculateTTC, calculateRemainingStock } = useProduct(); // on utilise les méthodes créé dans le hook de Product
     // utilisation du context pour modifier les valeurs dans la globalité de l'application
     const { items, updateItem } = useContext(ItemsContext);
@@ -40,7 +41,7 @@ function ProductsList({ products }) {
         <>
             {(products.length > 0) ? (
                 <>
-                    <table>
+                    <table className={styles.itemTable}>
                         <thead>
                             <tr>
                                 <th>Produit</th>
@@ -52,7 +53,7 @@ function ProductsList({ products }) {
                             {products.map((product) => (
                                 <tr key={product.id}>
                                     <td>{product.name}</td>
-                                    <td>{calculateTTC(product.price_ht, product.tax_rate)} €</td>
+                                    <td>{formatPrice(parseFloat(calculateTTC(product.price_ht, product.tax_rate)))}</td>
                                     <td>
                                         <select
                                             value={getQuantityForProduct(product.id)}   // Pour avoir la bonne quantité en revenant sur la vue et ayant déjà un panier
@@ -67,12 +68,14 @@ function ProductsList({ products }) {
                                     </td>
                                 </tr>
                             ))}
+                        </tbody>
+                        <tfoot>
                             <tr>
                                 <td>TOTAL</td>
-                                <td>{totalTTC}€</td>
+                                <td>{formatPrice(totalTTC)}</td>
                                 <td>{calculateTotalQuantity()}</td>
                             </tr>
-                        </tbody>
+                        </tfoot>
                     </table>
                 </>
             ) : (

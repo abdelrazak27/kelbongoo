@@ -1,0 +1,39 @@
+.itemTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.itemTable th {
+    font-weight: 700;
+    background-color: #d1d1d1;
+}
+
+.itemTable th, .itemTable td {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #a0a0a0;
+}
+
+.itemTable tr:nth-child(even) {
+    background-color: #d1d1d1;
+}
+
+.itemTable tr:nth-child(odd) {
+    background-color: #dedede;
+}
+
+.itemTable select {
+    padding: 5px;
+    margin: 2px 0;
+    border-radius: 0;
+    border: 1px solid #ddd;
+    width: 50%;
+    text-align: center;
+    font-weight: 700;
+}
+
+.itemTable tfoot td {
+    font-weight: 600;
+    background-color: rgb(201, 226, 201);
+}

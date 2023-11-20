@@ -5,11 +5,22 @@ import './App.css';
 import { v4 as uuidv4 } from 'uuid';
 import { useContext, useEffect, useState } from 'react';
 import { CartContext } from './contexts/CartContext';
+import Header from './components/Header/Header';
 
 function App() {
   const [products, setProducts] = useState([]); // liste des produits existants
   const [loading, setLoading] = useState(true);
   const { setCart, createCart, getCart } = useContext(CartContext);  // Utilisation du context pour modifier le panier dans la globalité de l'app
+
+  // Fonction pour formater les prix
+  const formatPrice = (price) => {
+    return price.toLocaleString('fr-FR', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+  };
 
   // récupère tous les produits
   const fetchProducts = () => {
@@ -45,15 +56,19 @@ function App() {
 
   return (
     <Router>
+      <Header />
       <div className="App">
         {/* Si les données de sont pas chargé, on affiche pas les vues */}
         {loading ? (
           <div>Chargement...</div>
         ) : (
+          <>
+          
           <Routes>
-            <Route path="/" element={<CustomerPage products={products} />} />
-            <Route path="/admin" element={<AdminPage fetchProducts={fetchProducts} products={products} />} />
+            <Route path="/" element={<CustomerPage products={products} formatPrice={formatPrice} />} />
+            <Route path="/admin" element={<AdminPage fetchProducts={fetchProducts} products={products} formatPrice={formatPrice} />} />
           </Routes>
+          </>
         )}
       </div>
     </Router>
