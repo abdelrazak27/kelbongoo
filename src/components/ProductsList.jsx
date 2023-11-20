@@ -6,7 +6,7 @@ import { ItemsContext } from "../contexts/ItemsContext";
 function ProductsList({ products }) {
     const { calculateTTC, calculateRemainingStock } = useProduct(); // on utilise les méthodes créé dans le hook de Product
     // utilisation du context pour modifier les valeurs dans la globalité de l'application
-    const { items } = useContext(ItemsContext);
+    const { items, updateItem } = useContext(ItemsContext);
     const { total_ttc } = useContext(CartContext);
     const [totalTTC, setTotalTTC] = useState(0);
 
@@ -26,6 +26,9 @@ function ProductsList({ products }) {
         }
     }, [items, total_ttc]);
 
+    const handleQuantityChange = (productId, quantity) => {
+        updateItem(productId, quantity);
+    };
 
     return (
         <>
@@ -45,7 +48,9 @@ function ProductsList({ products }) {
                                     <td>{product.name} ({product.id}) - test :</td>
                                     <td>{calculateTTC(product.price_ht, product.tax_rate)} €</td>
                                     <td>
-                                        <select>
+                                        <select
+                                            onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value))}
+                                        >
                                             {[...Array(calculateRemainingStock(product.stock_maximum_available, product.stock_ordered) + 1).keys()].map((number) => (
                                                 <option key={number} value={number}>
                                                     {number}
