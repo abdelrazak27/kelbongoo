@@ -7,6 +7,7 @@ function CustomerPage({ products, formatPrice }) {
 
     const { items } = useContext(ItemsContext);
     const [ loading, setLoading ] = useState(false);
+    const [ loadingTotalTtc, setLoadingTotalTtc ] = useState(false);
 
     // Fonction pour mettre à jour sotck_ordered côté serveur
     const updateProductBDD = async (productID, stockPurchased) => {
@@ -75,9 +76,9 @@ function CustomerPage({ products, formatPrice }) {
     return (
         <>
             <h2>Produits</h2>
-            <ProductsList products={products} formatPrice={formatPrice} />
+            <ProductsList products={products} formatPrice={formatPrice} loadingTotalTtc={loadingTotalTtc} setLoadingTotalTtc={setLoadingTotalTtc} />
             <br />
-            <Button text={loading ? "Chargement" : "Commander"} functionButton={checkOutCart} disabled={items.length === 0 || loading} />
+            <Button text={loading ? "Chargement" : "Commander"} functionButton={checkOutCart} disabled={items.length === 0 || loading || loadingTotalTtc} />
         </>
     );
 }

@@ -4,7 +4,7 @@ import { CartContext } from "../../contexts/CartContext";
 import { ItemsContext } from "../../contexts/ItemsContext";
 import styles from "./ProductsList.module.css";
 
-function ProductsList({ products, formatPrice }) {
+function ProductsList({ products, formatPrice, loadingTotalTtc, setLoadingTotalTtc }) {
     const { calculateTTC, calculateRemainingStock } = useProduct(); // on utilise les méthodes créé dans le hook de Product
     // utilisation du context pour modifier les valeurs dans la globalité de l'application
     const { items, updateItem } = useContext(ItemsContext);
@@ -13,7 +13,7 @@ function ProductsList({ products, formatPrice }) {
 
     // Calcul de la quantité total
     const calculateTotalQuantity = () => {
-        return items.reduce((total, item) => total + item.quantity, 0); // items ne peut pas se remplir pour le moment, il est normal que la quantité reste figé à 0
+        return items.reduce((total, item) => total + item.quantity, 0);
     };
 
     // Fonction qui retourne la quantité d'un produit choisi
@@ -24,12 +24,14 @@ function ProductsList({ products, formatPrice }) {
 
     // Rafraichissement du total de la commande en temps réel
     useEffect(() => {
+        setLoadingTotalTtc(true);
         if (items) {
             const calculateTotal = async () => {
                 const total = await total_ttc(items);
                 setTotalTTC(total);
+                setLoadingTotalTtc(false);
             };
-            calculateTotal(); // items ne peut pas se remplir pour le moment, il est normal que le prix reste figé à 0
+            calculateTotal();
         }
     }, [items, total_ttc]);
 
@@ -72,7 +74,7 @@ function ProductsList({ products, formatPrice }) {
                         <tfoot>
                             <tr>
                                 <td>TOTAL</td>
-                                <td>{formatPrice(totalTTC)}</td>
+                                <td>{loadingTotalTtc ? "..." : formatPrice(totalTTC)}</td>
                                 <td>{calculateTotalQuantity()}</td>
                             </tr>
                         </tfoot>
