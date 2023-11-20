@@ -28,7 +28,7 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<CustomerPage />} />
+          <Route path="/" element={<CustomerPage products={products} />} />
           <Route path="/admin" element={<AdminPage fetchProducts={fetchProducts} products={products} />} />
         </Routes>
       </div>

@@ -1,5 +1,11 @@
-function CustomerPage() {
-    return <div>Page client</div>;
+import ProductsList from "../components/ProductsList";
+
+function CustomerPage({ products }) {
+    return (
+        <>
+            <ProductsList products={products}/>
+        </>
+    );
 }
 
 export default CustomerPage;
