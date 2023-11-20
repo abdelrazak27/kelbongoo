@@ -96,6 +96,7 @@ function AdminPage({ fetchProducts, products }) {
                     value={product.name}
                     onChange={handleInputChange}
                     placeholder="Nom du produit"
+                    autoComplete='off'
                     required
                 />
                 <input
@@ -106,6 +107,7 @@ function AdminPage({ fetchProducts, products }) {
                     placeholder="Prix HT"
                     step="0.01"
                     min="0"
+                    autoComplete='off'
                     required
                 />
                 <select
@@ -123,6 +125,7 @@ function AdminPage({ fetchProducts, products }) {
                     onChange={handleInputChange}
                     placeholder="Stock commandé"
                     min="0"
+                    autoComplete='off'
                     required
                 />
                 <input
@@ -132,6 +135,7 @@ function AdminPage({ fetchProducts, products }) {
                     onChange={handleInputChange}
                     placeholder="Stock maximum disponible"
                     min="0"
+                    autoComplete='off'
                     required
                 />
                 <Button type="submit" text="Ajouter le produit" />
