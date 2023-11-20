@@ -75,3 +75,14 @@ h2 {
     font-weight: 500;
     font-size: 1.4rem;
 }
+
+.loadingScreen {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50vh;
+	font-size: 2rem;
+	text-transform: uppercase;
+	font-weight: 500;
+	color: #2E7247;
+}

@@ -60,7 +60,7 @@ function App() {
       <div className="App">
         {/* Si les données de sont pas chargé, on affiche pas les vues */}
         {loading ? (
-          <div>Chargement...</div>
+          <div className='loadingScreen'>Chargement...</div>
         ) : (
           <>
           
