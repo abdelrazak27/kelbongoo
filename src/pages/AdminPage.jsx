@@ -1,3 +1,4 @@
+import Button from '../components/Button';
 import useProduct from '../hooks/useProduct';
 
 function AdminPage({ fetchProducts, products }) {
@@ -133,7 +134,7 @@ function AdminPage({ fetchProducts, products }) {
                     min="0"
                     required
                 />
-                <button type="submit">Ajouter</button>
+                <Button type="submit" text="Ajouter le produit" />
             </form>
         </div>    
     );
