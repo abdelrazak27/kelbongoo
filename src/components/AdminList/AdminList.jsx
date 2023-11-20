@@ -69,7 +69,7 @@ function AdminList({ products, fetchProducts, formatPrice }) {
                 </tbody>
             </table>
             ) : (
-                <p>Aucun produit à afficher.</p>
+                <p className="noProducts">Aucun produit à afficher.</p>
             )}            
         </div>
     )

@@ -79,7 +79,7 @@ function ProductsList({ products, formatPrice }) {
                     </table>
                 </>
             ) : (
-                <p>Aucun produit à afficher.</p>
+                <p className="noProducts">Aucun produit de disponible.</p>
             )}
         </>
     )
