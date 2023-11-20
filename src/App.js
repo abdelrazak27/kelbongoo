@@ -25,8 +25,9 @@ function App() {
   }
 
   useEffect(() => {
+    const localStorageCartID = localStorage.getItem('cartID');
     // Création du panier, si pas de panier
-    if(!localStorage.getItem('cartID')) {
+    if(!localStorageCartID) {
       const cartID = uuidv4();
       localStorage.setItem('cartID', cartID);       // stockage de l'ID côté client
       createCart(cartID);                           // Création du panier côté serveur
@@ -34,7 +35,7 @@ function App() {
       setLoading(false);
     } else {
       // Récupération du panier existant
-      getCart(localStorage.getItem('cartID')).then(() => {
+      getCart(localStorageCartID).then(() => {
         setLoading(false);
       });
     }

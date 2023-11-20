@@ -1,4 +1,4 @@
-import mysql from 'mysql';
+import connectToDB from '../src/utils/db';
 
 export default function handler(req, res) {
     if (req.method !== 'PUT') {
@@ -8,12 +8,7 @@ export default function handler(req, res) {
     
     const { cartId, productId, newQuantity } = req.body;
 
-    const connection = mysql.createConnection({
-        host: 'mysql-kelbongoo.alwaysdata.net',
-        user: 'kelbongoo',
-        password: '@KELbonGOO.132',
-        database: 'kelbongoo_datas'
-    });
+    const connection = connectToDB();
 
     const query = `UPDATE items SET quantity = ? WHERE cart_id = ? AND product_id = ?`;
 

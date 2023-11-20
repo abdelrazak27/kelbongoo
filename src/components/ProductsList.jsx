@@ -51,7 +51,7 @@ function ProductsList({ products }) {
                         <tbody>
                             {products.map((product) => (
                                 <tr key={product.id}>
-                                    <td>{product.name} ({product.id}) - test :</td>
+                                    <td>{product.name}</td>
                                     <td>{calculateTTC(product.price_ht, product.tax_rate)} €</td>
                                     <td>
                                         <select

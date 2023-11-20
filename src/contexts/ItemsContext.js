@@ -73,6 +73,7 @@ export const ItemsProvider = ({ children }) => {
 
     // Méthode pour mettre à jour l'item du panier, côté client (et serveur).
     const updateItem = (productId, quantity) => {
+        const localStorageCartID = localStorage.getItem('cartID');
         setItems(currentItems => {
             // Vérifier si l'item existe déjà dans le panier
             const existingItemIndex = currentItems.findIndex(item => item.product_id === productId);
@@ -80,12 +81,12 @@ export const ItemsProvider = ({ children }) => {
             if (existingItemIndex >= 0) {
                 // Supprimer le produit de la liste
                 if (quantity === 0) {
-                    deleteItemBDD(localStorage.getItem('cartID'), productId);           // Côté serveur
+                    deleteItemBDD(localStorageCartID, productId);           // Côté serveur
                     return currentItems.filter(item => item.product_id !== productId);  // Côté client
                 }
 
                 // Mettre à jour la quantité d'un produit
-                updateItemBDD(localStorage.getItem('cartID'), productId, quantity);     // Côté serveur
+                updateItemBDD(localStorageCartID, productId, quantity);     // Côté serveur
                 const updatedItems = [...currentItems];
                 updatedItems[existingItemIndex] = { ...updatedItems[existingItemIndex], quantity };
                 return updatedItems;    // Côté client
@@ -96,8 +97,8 @@ export const ItemsProvider = ({ children }) => {
                 }
 
                 // Ajouter le nouveau produit à la liste
-                addItemBDD(localStorage.getItem('cartID'), productId, quantity);        // Côté serveur
-                return [...currentItems, { cart_id: localStorage.getItem('cartID'), product_id: productId, quantity }];     // Côté client
+                addItemBDD(localStorageCartID, productId, quantity);        // Côté serveur
+                return [...currentItems, { cart_id: localStorageCartID, product_id: productId, quantity }];     // Côté client
             }
         });
     };

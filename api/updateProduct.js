@@ -1,4 +1,4 @@
-import mysql from 'mysql';
+import connectToDB from "../src/utils/db";
 
 export default function handler(req, res) {
     if (req.method !== 'PUT') {
@@ -8,12 +8,7 @@ export default function handler(req, res) {
     
     const { id, stockPurchased } = req.body;
 
-    const connection = mysql.createConnection({
-        host: 'mysql-kelbongoo.alwaysdata.net',
-        user: 'kelbongoo',
-        password: '@KELbonGOO.132',
-        database: 'kelbongoo_datas'
-    });
+    const connection = connectToDB();
 
     // On récupère l'ancienne valeur, et on y ajoute la quantité commandé lors de la commande qui a exécuté la requête
     const query = `UPDATE products SET stock_ordered = stock_ordered + ? WHERE id = ?`;

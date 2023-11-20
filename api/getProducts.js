@@ -1,14 +1,9 @@
-import mysql from 'mysql';
+import connectToDB from "../src/utils/db";
 
 export default function handler(req, res) {
     if (req.method === 'GET') {
-        const connection = mysql.createConnection({
-            host: 'mysql-kelbongoo.alwaysdata.net',
-            user: 'kelbongoo',
-            password: '@KELbonGOO.132',
-            database: 'kelbongoo_datas'
-        });
 
+        const connection = connectToDB();
         connection.connect();
 
         connection.query('SELECT * FROM products', (error, results) => {

@@ -1,15 +1,10 @@
-import mysql from 'mysql';
+import connectToDB from '../src/utils/db';
 
 export default function handler(req, res) {
     if (req.method === 'POST') {
         const { name, price_ht, tax_rate, stock_maximum_available, stock_ordered } = req.body;
 
-        const connection = mysql.createConnection({
-            host: 'mysql-kelbongoo.alwaysdata.net',
-            user: 'kelbongoo',
-            password: '@KELbonGOO.132',
-            database: 'kelbongoo_datas'
-        });
+        const connection = connectToDB();
 
         const query = `INSERT INTO products (name, price_ht, tax_rate, stock_maximum_available, stock_ordered) VALUES (?, ?, ?, ?, ?)`;
 

@@ -1,4 +1,4 @@
-import mysql from 'mysql';
+import connectToDB from "../src/utils/db";
 
 export default function handler(req, res) {
     if (req.method !== 'DELETE') {
@@ -9,12 +9,7 @@ export default function handler(req, res) {
     const { productId, cartId } = req.body;
     console.log(req.body);
 
-    const connection = mysql.createConnection({
-        host: 'mysql-kelbongoo.alwaysdata.net',
-        user: 'kelbongoo',
-        password: '@KELbonGOO.132',
-        database: 'kelbongoo_datas'
-    });
+    const connection = connectToDB();
 
     const query = `DELETE FROM items WHERE product_id = ? AND cart_id = ?`;
 

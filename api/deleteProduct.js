@@ -1,4 +1,4 @@
-import mysql from 'mysql';
+import connectToDB from "../src/utils/db";
 
 export default function handler(req, res) {
     if (req.method !== 'DELETE') {
@@ -8,12 +8,7 @@ export default function handler(req, res) {
     
     const { id } = req.body;
 
-    const connection = mysql.createConnection({
-        host: 'mysql-kelbongoo.alwaysdata.net',
-        user: 'kelbongoo',
-        password: '@KELbonGOO.132',
-        database: 'kelbongoo_datas'
-    });
+    const connection = connectToDB();
 
     const query = `DELETE FROM products WHERE id = ?`;
 

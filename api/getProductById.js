@@ -1,4 +1,4 @@
-import mysql from 'mysql';
+import connectToDB from '../src/utils/db';
 
 export default function handler(req, res) {
     if (req.method === 'GET') {
@@ -7,12 +7,7 @@ export default function handler(req, res) {
             return res.status(400).json({ error: "L'ID du produit est requis" });
         }
 
-        const connection = mysql.createConnection({
-            host: 'mysql-kelbongoo.alwaysdata.net',
-            user: 'kelbongoo',
-            password: '@KELbonGOO.132',
-            database: 'kelbongoo_datas'
-        });
+        const connection = connectToDB();
 
         connection.connect();
 
