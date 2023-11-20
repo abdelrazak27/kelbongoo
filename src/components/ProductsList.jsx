@@ -15,6 +15,12 @@ function ProductsList({ products }) {
         return items.reduce((total, item) => total + item.quantity, 0); // items ne peut pas se remplir pour le moment, il est normal que la quantité reste figé à 0
     };
 
+    // Fonction qui retourne la quantité d'un produit choisi
+    const getQuantityForProduct = (productId) => {
+        const item = items.find(item => item.product_id === productId);
+        return item ? item.quantity : 0;
+    };
+
     // Rafraichissement du total de la commande en temps réel
     useEffect(() => {
         if (items) {
@@ -49,6 +55,7 @@ function ProductsList({ products }) {
                                     <td>{calculateTTC(product.price_ht, product.tax_rate)} €</td>
                                     <td>
                                         <select
+                                            value={getQuantityForProduct(product.id)}   // Pour avoir la bonne quantité en revenant sur la vue et ayant déjà un panier
                                             onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value))}
                                         >
                                             {[...Array(calculateRemainingStock(product.stock_maximum_available, product.stock_ordered) + 1).keys()].map((number) => (
