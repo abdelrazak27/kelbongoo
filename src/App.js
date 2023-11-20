@@ -2,10 +2,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CustomerPage from './pages/CustomerPage';
 import AdminPage from './pages/AdminPage';
 import './App.css';
-import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { useContext, useEffect, useState } from 'react';
+import { CartContext } from './contexts/CartContext';
 
 function App() {
   const [products, setProducts] = useState([]); // liste des produits existants
+  const [loading, setLoading] = useState(true);
+  const { setCart, createCart, getCart } = useContext(CartContext);  // Utilisation du context pour modifier le panier dans la globalité de l'app
 
   // récupère tous les produits
   const fetchProducts = () => {
@@ -21,16 +25,35 @@ function App() {
   }
 
   useEffect(() => {
+    // Création du panier, si pas de panier
+    if(!localStorage.getItem('cartID')) {
+      const cartID = uuidv4();
+      localStorage.setItem('cartID', cartID);       // stockage de l'ID côté client
+      createCart(cartID);                           // Création du panier côté serveur
+      setCart({ id: cartID, checked_out: false });  // Création du panier côté client
+      setLoading(false);
+    } else {
+      // Récupération du panier existant
+      getCart(localStorage.getItem('cartID')).then(() => {
+        setLoading(false);
+      });
+    }
     fetchProducts();
-  }, []);
+    // eslint-disable-next-line
+  }, []); 
 
   return (
     <Router>
       <div className="App">
-        <Routes>
-          <Route path="/" element={<CustomerPage products={products} />} />
-          <Route path="/admin" element={<AdminPage fetchProducts={fetchProducts} products={products} />} />
-        </Routes>
+        {/* Si les données de sont pas chargé, on affiche pas les vues */}
+        {loading ? (
+          <div>Chargement...</div>
+        ) : (
+          <Routes>
+            <Route path="/" element={<CustomerPage products={products} />} />
+            <Route path="/admin" element={<AdminPage fetchProducts={fetchProducts} products={products} />} />
+          </Routes>
+        )}
       </div>
     </Router>
   );
