@@ -35,16 +35,21 @@ Utilisez le bouton en haut de la page pour naviguer entre les vues Administrateu
 
 ## Captures d'écran
 Vue administrateur : 
+
 ![Vue Administrateur](https://zupimages.net/up/23/47/sl9h.png)
 
 Vue catalogue :
+
 ![Vue Catalogue](https://zupimages.net/up/23/47/thq0.png)
 
 Table "products" :
+
 ![Table "products"](https://zupimages.net/up/23/47/enmg.png)
 
 Table "items" :
+
 ![Table "items"](https://zupimages.net/up/23/47/7u89.png)
 
 Table "carts" :
+
 ![Table "carts"](https://zupimages.net/up/23/47/hduf.png)
