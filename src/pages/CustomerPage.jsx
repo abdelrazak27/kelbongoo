@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Button from "../components/Button/Button";
 import ProductsList from "../components/ProductsList/ProductsList";
 import { ItemsContext } from "../contexts/ItemsContext";
@@ -6,6 +6,7 @@ import { ItemsContext } from "../contexts/ItemsContext";
 function CustomerPage({ products, formatPrice }) {
 
     const { items } = useContext(ItemsContext);
+    const [ loading, setLoading ] = useState(false);
 
     // Fonction pour mettre à jour sotck_ordered côté serveur
     const updateProductBDD = async (productID, stockPurchased) => {
@@ -52,6 +53,7 @@ function CustomerPage({ products, formatPrice }) {
     };
 
     const checkOutCart = async () => {
+        setLoading(true);
         // maj du stock des produits
         for (const item of items) {
             const productID = item.product_id;
@@ -75,7 +77,7 @@ function CustomerPage({ products, formatPrice }) {
             <h2>Produits</h2>
             <ProductsList products={products} formatPrice={formatPrice} />
             <br />
-            <Button text="Commander" functionButton={checkOutCart} disabled={items.length === 0} />
+            <Button text={loading ? "Chargement" : "Commander"} functionButton={checkOutCart} disabled={items.length === 0 || loading} />
         </>
     );
 }

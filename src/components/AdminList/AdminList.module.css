@@ -37,6 +37,16 @@
     cursor: pointer;
 }
 
+.deleteButton:disabled {
+    background-color: #b1363631;
+    cursor: not-allowed;
+}
+
+.infoIcon {
+    text-decoration: none;
+    cursor: help;
+}
+
 @media screen and (max-width: 768px) {
     .productsTable, .productsTable thead, .productsTable tbody, .productsTable th, .productsTable td, .productsTable tr {
         display: block;

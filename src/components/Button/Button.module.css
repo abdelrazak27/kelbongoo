@@ -13,3 +13,8 @@
     cursor: pointer;
     background: #245535;
 }
+
+.bigButton:disabled {
+    cursor: not-allowed;
+    background: #2e724779;
+}

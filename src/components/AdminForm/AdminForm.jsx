@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import useProduct from '../../hooks/useProduct';
 import Button from '../Button/Button';
 import styles from './AdminForm.module.css';
 
 function AdminForm({ fetchProducts }) {
     const { product, setProduct } = useProduct(); // produit à ajouter (hook)
+    const [ loading, setLoading ] = useState(false);
 
     // Changement dans le formulaire
     const handleInputChange = (e) => {
@@ -13,6 +15,7 @@ function AdminForm({ fetchProducts }) {
 
     // Soumission du formulaire
     const handleSubmit = async (e) => {
+        setLoading(true);
         e.preventDefault();
         const productData = {
             name: product.name,
@@ -39,8 +42,21 @@ function AdminForm({ fetchProducts }) {
             const result = await response.json();
             console.log('Product added:', result);
             fetchProducts();
+            setProduct({
+                name: '',
+                priceHT: '',
+                taxRate: 0.20,
+                stockMaximumAvailable: '',
+                stockOrdered: '',
+            });
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
         } catch (error) {
             console.error('Error adding product:', error);
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
         }
     };
 
@@ -106,7 +122,7 @@ function AdminForm({ fetchProducts }) {
                     className={styles.adminFormInput}
                     required
                 />
-                <Button type="submit" text="Ajouter le produit" />
+                <Button type="submit" text={loading ? "Chargement" : "Ajouter le produit"} disabled={loading} />
             </form>
         </div>
     )
